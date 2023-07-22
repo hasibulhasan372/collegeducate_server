@@ -32,10 +32,17 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
-    const collegeCollection = client.db("collegeducateDB").collection("colleges")
+    const collegeCollection = client.db("collegeducateDB").collection("colleges");
+    const candidateCollection = client.db("collegeducateDB").collection("candidateInfo");
 
     app.get("/colleges", async(req, res) =>{
             const result = await collegeCollection.find().toArray();
+            res.send(result)
+    });
+
+    app.post("/candidateInfo", async(req, res) =>{
+            const candidate = req.body;
+            const result = await candidateCollection.insertOne(candidate);
             res.send(result)
     })
 
