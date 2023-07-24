@@ -36,6 +36,8 @@ async function run() {
     const candidateCollection = client.db("collegeducateDB").collection("candidateInfo");
     const userCollection = client.db("collegeducateDB").collection("users");
     const reviewsCollection = client.db("collegeducateDB").collection("reviews");
+    const galleryCollection = client.db("collegeducateDB").collection("gallery");
+    const researchCollection = client.db("collegeducateDB").collection("research");
 
     app.get("/colleges", async(req, res) =>{
             const result = await collegeCollection.find().toArray();
@@ -94,6 +96,16 @@ async function run() {
     app.post("/reviews", async(req, res) =>{
         const review = req.body;
         const result = await reviewsCollection.insertOne(review)
+        res.send(result)
+    })
+    // Gallery API 
+    app.get("/gallery", async(req, res) =>{
+        const result = await galleryCollection.find().toArray();
+        res.send(result)
+    })
+    // Research API 
+    app.get("/research", async(req, res) =>{
+        const result = await researchCollection.find().toArray();
         res.send(result)
     })
 
