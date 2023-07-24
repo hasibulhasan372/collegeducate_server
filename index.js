@@ -35,6 +35,7 @@ async function run() {
     const collegeCollection = client.db("collegeducateDB").collection("colleges");
     const candidateCollection = client.db("collegeducateDB").collection("candidateInfo");
     const userCollection = client.db("collegeducateDB").collection("users");
+    const reviewsCollection = client.db("collegeducateDB").collection("reviews");
 
     app.get("/colleges", async(req, res) =>{
             const result = await collegeCollection.find().toArray();
@@ -83,6 +84,13 @@ async function run() {
         const result = await userCollection.insertOne(user);
         res.send(result)
     });
+
+
+    // Reviews API 
+    app.get("/reviews", async(req, res) =>{
+        const result = await reviewsCollection.find().toArray();
+        res.send(result)
+    })
 
 
     // Send a ping to confirm a successful connection
